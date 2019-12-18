@@ -87,6 +87,10 @@ func newChannel(c *Connection, id uint16) *Channel {
 	}
 }
 
+func (ch *Channel) IsClosed() bool {
+    return (atomic.LoadInt32(&ch.closed) == 1)
+}
+
 // shutdown is called by Connection after the channel has been removed from the
 // connection registry.
 func (ch *Channel) shutdown(e *Error) {
